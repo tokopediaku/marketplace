@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tokopedia - Pembelian</title>
+    <title>BelanjaPedia - Flow Pembelian</title>
     <style>
         /* Reset Dasar */
         * {
@@ -350,12 +350,12 @@
                 <!-- Kiri: Galeri Foto -->
                 <div class="product-gallery">
                     <div class="main-image card" style="margin-bottom: 0;">
-                        <img id="main-product-img" src="image/air1.jpeg" alt="Produk Utama">
+                        <img id="main-product-img" src="image/hp-hitam.jpg" alt="Produk Utama">
                     </div>
                     
                     <div class="thumbnail-container">
-                        <div class="thumbnail active" onclick="changeImage('image/air1.jpeg', 'Hitam', this)">
-                            <img src="image/air1.jpeg" alt="HP Hitam">
+                        <div class="thumbnail active" onclick="changeImage('image/hp-hitam.jpg', 'Hitam', this)">
+                            <img src="image/hp-hitam.jpg" alt="HP Hitam">
                         </div>
                         <div class="thumbnail" onclick="changeImage('image/hp-silver.jpg', 'Putih (Silver)', this)">
                             <img src="image/hp-silver.jpg" alt="HP Silver">
@@ -368,28 +368,23 @@
 
                 <!-- Kanan: Detail & Aksi -->
                 <div class="product-details card">
-                    <h1>Apple Macbook M1 Air</h1>
+                    <h1 id="main-product-title">Smartphone XYZ Pro Max 256GB - Garansi Resmi 1 Tahun</h1>
                     
                     <div class="product-rating">
                         <span class="star">★</span>
                         <span style="font-weight: bold; color: #31353b;">4.9</span>
-                        <span>(3Terjual)</span>
+                        <span>(2.450 Terjual)</span>
                     </div>
 
-                    <div class="product-price">Rp 6.000.000</div>
+                    <div class="product-price" id="main-product-price">Rp 5.000.000</div>
 
                     <div class="product-description">
                         <strong>Detail Produk:</strong><br>
-                        Processor: Apple M1 chip with 8-core CPU and 7-core GPU.<br>
-                        Memory: 8GB unified memory (RAM).<br>
-                        Storage: 256GB fast SSD.<br>
-                        Display: 13.3-inch Retina display with True Tone (2560 x 1600 pixels).<br>
-                        Battery: Up to 18 hours of video playback.<br>
-                        Cooling: Fanless design (completely silent).<br>
-                        Ports: Two Thunderbolt / USB 4 ports and a 3.5mm headphone jack.<br>
-                        Weight: 1.29 kg (2.8 pounds).<br><br>
-            
-                        Barang 100% Original, BH 85%. Tidak ada minus fungsi normal<br> Pengiriman aman menggunakan bubble wrap tebal dan asuransi.
+                        - Kapasitas: 256GB<br>
+                        - Chipset: A15 Bionic Tercanggih<br>
+                        - Kamera: Triple 48MP dengan Night Mode<br>
+                        - Layar: 6.7" OLED Super Retina<br><br>
+                        Barang 100% Original, BNIB (Brand New In Box). Garansi resmi 1 tahun. Pengiriman aman menggunakan bubble wrap tebal dan asuransi.
                     </div>
 
                     <div class="action-buttons">
@@ -423,10 +418,10 @@
                         <div class="store-name">Toko Elektronik Maju Official</div>
                     </div>
                     <div class="product-item">
-                        <img class="product-img" id="chk-img-preview" src="image/air1.jpeg" alt="Preview Pesanan">
+                        <img class="product-img" id="chk-img-preview" src="image/hp-hitam.jpg" alt="Preview Pesanan">
                         <div class="product-info">
-                            <h3 id="chk-product-title">Apple Macbook M1 Air</h3>
-                            <p class="price">Rp 6.000.000</p>
+                            <h3 id="chk-product-title">Smartphone XYZ Pro Max 256GB - Garansi Resmi</h3>
+                            <p class="price" id="chk-product-price">Rp 5.000.000</p>
                             <p class="weight">1 Barang (1 kg)</p>
                         </div>
                     </div>
@@ -459,7 +454,7 @@
                     <h2 class="section-title">Ringkasan Belanja</h2>
                     <div class="summary-row">
                         <span>Total Harga (1 Barang)</span>
-                        <span>Rp 6.000.000</span>
+                        <span id="chk-summary-price">Rp 5.000.000</span>
                     </div>
                     <div class="summary-row">
                         <span>Total Ongkos Kirim</span>
@@ -476,7 +471,7 @@
                     <hr class="divider">
                     <div class="summary-row total-row">
                         <span>Total Tagihan</span>
-                        <span class="total-price" id="total-price">Rp 6.051.000</span>
+                        <span class="total-price" id="total-price">Rp 5.051.000</span>
                     </div>
                     <button class="btn-primary full-width" onclick="processPayment()">Bayar Sekarang</button>
                 </div>
@@ -517,7 +512,7 @@
                 </div>
                 <div class="form-group">
                     <label>Alamat Lengkap</label>
-                    <textarea id="input-address" class="form-control" placeholder="Nama Jalan, Gedung, No. Rumah, RT/RW, Kecamatan, Kota, Kodepos"></textarea>
+                    <textarea id="input-address" class="form-control" placeholder="</textarea>
                 </div>
 
                 <button class="btn-primary full-width" onclick="confirmAddress()">Konfirmasi & Lanjut Checkout</button>
@@ -560,6 +555,7 @@
     <script>
         // --- Interaksi Halaman Produk ---
         let currentSelectedColor = "Hitam";
+        let baseProductPrice = 5000000;
 
         function changeImage(imageSrc, colorName, element) {
             // Ubah gambar utama ke src yang dipilih
@@ -604,8 +600,20 @@
             document.getElementById('chk-phone').innerText = phone;
             document.getElementById('chk-address').innerText = address;
 
-            // Update judul produk dengan warna yang dipilih
-            document.getElementById('chk-product-title').innerText = `Apple Macbook - ${currentSelectedColor}, M1 Air`;
+            // Dinamis mengambil judul dan harga dari halaman utama
+            const mainTitle = document.getElementById('main-product-title').innerText;
+            const mainPriceStr = document.getElementById('main-product-price').innerText;
+
+            // Update teks produk di halaman checkout
+            document.getElementById('chk-product-title').innerText = `${mainTitle} - Warna: ${currentSelectedColor}`;
+            document.getElementById('chk-product-price').innerText = mainPriceStr;
+            document.getElementById('chk-summary-price').innerText = mainPriceStr;
+
+            // Ekstrak angka dari teks harga (misal "Rp 5.000.000" menjadi angka 5000000)
+            baseProductPrice = parseInt(mainPriceStr.replace(/[^0-9]/g, ''));
+
+            // Perbarui perhitungan tagihan dengan harga baru
+            updateTotal();
 
             // Tutup Modal & Sembunyikan Halaman Produk
             closeAddressModal();
@@ -628,7 +636,9 @@
             });
 
             document.getElementById('shipping-cost').innerText = formatter.format(shippingCost);
-            const total = 15051000 + shippingCost; // Harga + Asuransi + Layanan
+            
+            // Harga Dinamis + Asuransi (Rp 50.000) + Layanan (Rp 1.000) + Ongkos Kirim
+            const total = baseProductPrice + 50000 + 1000 + shippingCost; 
             document.getElementById('total-price').innerText = formatter.format(total);
         }
 
