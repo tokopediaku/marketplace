@@ -24,7 +24,6 @@
             max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
-            position: relative;
         }
 
         .card {
@@ -33,8 +32,6 @@
             padding: 24px;
             margin-bottom: 16px;
             box-shadow: 0 1px 6px rgba(49, 53, 59, 0.08);
-            position: relative;
-            z-index: 1;
         }
 
         .section-title {
@@ -52,7 +49,7 @@
             margin-bottom: 24px;
             position: sticky;
             top: 0;
-            z-index: 50; /* Z-index header dinaikkan namun tetap dibawah modal */
+            z-index: 10;
         }
 
         .logo {
@@ -116,8 +113,6 @@
             transition: all 0.2s;
             overflow: hidden;
             padding: 2px;
-            position: relative;
-            z-index: 5;
         }
 
         .thumbnail img {
@@ -227,8 +222,6 @@
             width: 100%; padding: 12px 16px; border: 1px solid #e5e7e9; border-radius: 8px;
             font-size: 14px; color: #31353b; outline: none; background-color: white; cursor: pointer;
             appearance: none;
-            position: relative;
-            z-index: 5;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2331353b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat; background-position: right 16px center; background-size: 16px;
         }
@@ -255,7 +248,6 @@
             background-color: transparent; color: #31353b; border: 1px solid #e5e7e9;
             padding: 10px 16px; border-radius: 8px; font-weight: 700; cursor: pointer;
             font-size: 14px; transition: all 0.2s; display: inline-block; text-align: center;
-            position: relative; z-index: 5;
         }
         .btn-outline:hover { background-color: #f3f4f5; }
 
@@ -263,7 +255,6 @@
             background-color: #03ac0e; color: white; border: none; padding: 14px 16px;
             border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 16px;
             margin-top: 20px; transition: all 0.2s; box-shadow: 0 4px 6px rgba(3, 172, 14, 0.2);
-            position: relative; z-index: 5;
         }
         .btn-primary:hover { background-color: #028c0b; transform: translateY(-1px); }
         .full-width { width: 100%; }
@@ -288,7 +279,7 @@
         .close-btn {
             position: absolute; top: 16px; right: 20px; font-size: 28px; cursor: pointer;
             color: #6d7588; background: none; border: none; transition: color 0.2s;
-            line-height: 1; z-index: 10;
+            line-height: 1;
         }
         .close-btn:hover { color: #31353b; }
 
@@ -301,7 +292,7 @@
         }
         .form-control {
             width: 100%; padding: 12px; border: 1px solid #e5e7e9; border-radius: 8px;
-            font-size: 14px; outline: none; transition: 0.2s; position: relative; z-index: 5;
+            font-size: 14px; outline: none; transition: 0.2s;
         }
         .form-control:focus { border-color: #03ac0e; }
         textarea.form-control { resize: vertical; min-height: 80px; }
@@ -312,7 +303,7 @@
         }
         .payment-details-box p { margin-bottom: 12px; font-size: 14px; color: #6d7588; }
         .payment-details-box .detail-value { display: block; font-size: 18px; font-weight: 700; color: #31353b; margin-top: 4px; }
-        .copy-btn { color: #03ac0e; font-weight: 700; cursor: pointer; font-size: 14px; float: right; position: relative; z-index: 5; }
+        .copy-btn { color: #03ac0e; font-weight: 700; cursor: pointer; font-size: 14px; float: right; }
         
         .loader {
             border: 4px solid #f3f4f5; border-top: 4px solid #03ac0e; border-radius: 50%;
@@ -323,7 +314,7 @@
         .page-loader-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(255, 255, 255, 0.9); display: none; align-items: center;
-            justify-content: center; flex-direction: column; z-index: 9999; /* Z-index tertinggi memastikan menutupi segalanya saat dimuat */
+            justify-content: center; flex-direction: column; z-index: 9999;
         }
 
         /* Responsif */
@@ -377,12 +368,12 @@
 
                 <!-- Kanan: Detail & Aksi -->
                 <div class="product-details card">
-                    <h1 id="main-product-title">Macbook M1 Air</h1>
+                    <h1 id="main-product-title">Apple M1 Air 8/256GB 13 Inch</h1>
                     
                     <div class="product-rating">
                         <span class="star">★</span>
                         <span style="font-weight: bold; color: #31353b;">4.9</span>
-                        <span>(3 Terjual)</span>
+                        <span>(2.450 Terjual)</span>
                     </div>
 
                     <div class="product-price" id="main-product-price">Rp 5.000.000</div>
@@ -390,15 +381,15 @@
                     <div class="product-description">
                         <strong>Detail Produk:</strong><br>
                         - Kapasitas: 256GB<br>
-                        - Chipset: Apple M1 Tercanggih<br>
-                        - Kamera: Triple 48MP dengan Night Mode<br>
-                        - Layar: 6.7" OLED Super Retina<br><br>
-                        Barang 100% Original, BNIB (Brand New In Box). Garansi resmi 1 tahun. Pengiriman aman menggunakan bubble wrap tebal dan asuransi.
+                        - Chipset: M1 Apple Cpu 8 core<br>
+                        - Ram: 8GB<br>
+                        - Layar: 13.3" IPS Retina<br><br>
+                        Kondisi tidak ada minus, Baterai Health 85%, Pengiriman aman menggunakan bubble wrap tebal dan asuransi.
                     </div>
 
                     <div class="action-buttons">
-                        <!-- <button type="button" class="btn-outline" onclick="alert('Dimasukkan ke keranjang!')">+ Keranjang</button> -->
-                        <button type="button" class="btn-primary" onclick="openAddressModal()">Beli Sekarang</button>
+                        <!-- <button class="btn-outline" onclick="alert('Dimasukkan ke keranjang!')">+ Keranjang</button> -->
+                        <button class="btn-primary" onclick="openAddressModal()">Beli Sekarang</button>
                     </div>
                 </div>
             </div>
@@ -416,7 +407,7 @@
                         <p class="name"><span id="chk-name">Nama Penerima</span> <span class="badge">Utama</span></p>
                         <p class="phone" id="chk-phone">08xx-xxxx-xxxx</p>
                         <p class="address" id="chk-address">Alamat lengkap penerima</p>
-                        <button type="button" class="btn-outline" onclick="openAddressModal()">Ubah Alamat</button>
+                        <button class="btn-outline" onclick="openAddressModal()">Ubah Alamat</button>
                     </div>
                 </div>
 
@@ -449,7 +440,7 @@
             <aside class="checkout-sidebar">
                 <div class="card">
                     <h2 class="section-title">Metode Pembayaran</h2>
-                    <button type="button" class="btn-outline full-width">Lihat Semua Metode</button>
+                    <button class="btn-outline full-width">Lihat Semua Metode</button>
                     <div class="selected-payment">
                         <div class="payment-info">
                             <span class="payment-label">Transfer Bank</span>
@@ -482,7 +473,7 @@
                         <span>Total Tagihan</span>
                         <span class="total-price" id="total-price">Rp 5.051.000</span>
                     </div>
-                    <button type="button" class="btn-primary full-width" onclick="processPayment()">Bayar Sekarang</button>
+                    <button class="btn-primary full-width" onclick="processPayment()">Bayar Sekarang</button>
                 </div>
             </aside>
         </div>
@@ -497,7 +488,7 @@
                 <p style="color: #6d7588; font-size: 15px; margin-bottom: 32px; line-height: 1.6;">
                     Kami sedang memverifikasi pembayaran Anda. Proses ini otomatis dan biasanya memakan waktu hingga 5-10 menit. Mohon tunggu sebentar.
                 </p>
-                <button type="button" class="btn-outline full-width" onclick="location.reload()">Kembali ke Halaman Depan</button>
+                <button class="btn-outline full-width" onclick="location.reload()">Kembali ke Halaman Depan</button>
             </div>
         </div>
 
@@ -508,7 +499,7 @@
         <!-- Modal Form Alamat -->
         <div id="address-modal" class="modal-overlay">
             <div class="modal-content">
-                <button type="button" class="close-btn" onclick="closeAddressModal()">×</button>
+                <button class="close-btn" onclick="closeAddressModal()">×</button>
                 <h2 class="section-title" style="font-size: 20px; text-align: left; margin-bottom: 20px;">Isi Alamat Pengiriman</h2>
                 
                 <div class="form-group">
@@ -517,21 +508,21 @@
                 </div>
                 <div class="form-group">
                     <label>Nomor Telepon / HP</label>
-                    <input type="tel" id="input-phone" class="form-control" placeholder="Contoh: 081234567890" value="081234567890">
+                    <input type="tel" id="input-phone" class="form-control" placeholder="Contoh: 081234567890" value="">
                 </div>
                 <div class="form-group">
                     <label>Alamat Lengkap</label>
-                    <textarea id="input-address" class="form-control" placeholder=""</textarea>
+                    <textarea id="input-address" class="form-control" placeholder="Nama Jalan, Gedung, No. Rumah, RT/RW, Kecamatan, Kota, Kodepos"></textarea>
                 </div>
 
-                <button type="button" class="btn-primary full-width" onclick="confirmAddress()">Konfirmasi & Lanjut Checkout</button>
+                <button class="btn-primary full-width" onclick="confirmAddress()">Konfirmasi & Lanjut Checkout</button>
             </div>
         </div>
 
         <!-- Modal Detail Pembayaran -->
         <div id="payment-modal" class="modal-overlay">
             <div class="modal-content">
-                <button type="button" class="close-btn" onclick="closePaymentModal()">×</button>
+                <button class="close-btn" onclick="closePaymentModal()">×</button>
                 
                 <div id="loading-spinner">
                     <div class="loader"></div>
@@ -554,7 +545,7 @@
                         </p>
                     </div>
 
-                    <button type="button" class="btn-primary full-width" onclick="verifyPayment()">Saya Sudah Bayar</button>
+                    <button class="btn-primary full-width" onclick="verifyPayment()">Saya Sudah Bayar</button>
                 </div>
             </div>
         </div>
@@ -562,8 +553,6 @@
     </main>
 
     <script>
-        console.log("JavaScript berhasil dimuat.");
-        
         // --- Interaksi Halaman Produk ---
         let currentSelectedColor = "Hitam";
         let baseProductPrice = 5000000;
@@ -621,7 +610,7 @@
             document.getElementById('chk-summary-price').innerText = mainPriceStr;
 
             // Ekstrak angka dari teks harga (misal "Rp 5.000.000" menjadi angka 5000000)
-            baseProductPrice = parseInt(mainPriceStr.replace(/[^0-9]/g, '')) || 0;
+            baseProductPrice = parseInt(mainPriceStr.replace(/[^0-9]/g, ''));
 
             // Perbarui perhitungan tagihan dengan harga baru
             updateTotal();
