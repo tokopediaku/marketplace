@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokopedia - Pembelian Redmi 9 3/64GB</title>
+    <style>
+        /* Reset Dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f3f7;
+            color: #31353b;
+            line-height: 1.5;
+        }
+
+        /* Utilitas */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 6px rgba(49, 53, 59, 0.08);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #31353b;
+        }
+
+        /* Header */
+        .header {
+            background-color: #ffffff;
+            padding: 16px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            margin-bottom: 24px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            color: #03ac0e;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: #31353b;
+        }
+
+        /* ----------------------------------- */
+        /* HALAMAN DETAIL PRODUK               */
+        /* ----------------------------------- */
+        .product-page-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: start;
+            margin-bottom: 40px;
+        }
+
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .main-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: #f3f4f5;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 0;
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            gap: 12px;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            overflow: hidden;
+            padding: 2px;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+            background-color: #f3f4f5;
+        }
+
+        .thumbnail.active {
+            border-color: #03ac0e;
+        }
+
+        .product-details h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6d7588;
+            margin-bottom: 16px;
+        }
+
+        .star { color: #ffc400; font-size: 16px; }
+
+        .product-price {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fa591d;
+            margin-bottom: 24px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #31353b;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #e5e7e9;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .action-buttons .btn-primary { margin-top: 0; flex: 1; }
+        .action-buttons .btn-outline { flex: 1; padding: 14px 16px; }
+
+        /* ----------------------------------- */
+        /* HALAMAN CHECKOUT                    */
+        /* ----------------------------------- */
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .address-box {
+            border: 1px solid #e5e7e9;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .address-box p { margin-bottom: 4px; font-size: 14px; }
+        .address-box .name { font-size: 15px; color: #31353b; font-weight: bold; }
+        .address-box .badge {
+            background-color: #e4f8e5; color: #03ac0e; font-size: 10px; font-weight: bold;
+            padding: 2px 6px; border-radius: 4px; margin-left: 8px;
+        }
+        .address-box .address { color: #6d7588; margin-bottom: 16px; line-height: 1.6; }
+
+        .store-header {
+            display: flex; align-items: center; gap: 8px;
+            margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #e5e7e9;
+        }
+        .store-badge {
+            background-color: #9d4edd; color: white; font-size: 10px; font-weight: bold;
+            padding: 2px 6px; border-radius: 4px;
+        }
+        .store-name { font-weight: 700; font-size: 15px; }
+
+        .product-item { display: flex; gap: 16px; margin-bottom: 20px; }
+        
+        .product-img {
+            width: 72px; height: 72px; background-color: #f3f4f5; border-radius: 8px;
+            flex-shrink: 0; object-fit: cover; border: 1px solid #e5e7e9;
+        }
+        
+        .product-info h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #31353b; line-height: 1.4; }
+        .product-info .price { font-weight: 700; font-size: 14px; color: #fa591d; margin-bottom: 4px; }
+        .product-info .weight { font-size: 12px; color: #6d7588; }
+
+        .shipping-selection {
+            background-color: #f9fbfc; padding: 16px; border-radius: 8px; border: 1px solid #e5e7e9;
+        }
+        .shipping-selection label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 12px; color: #31353b; }
+
+        .form-select {
+            width: 100%; padding: 12px 16px; border: 1px solid #e5e7e9; border-radius: 8px;
+            font-size: 14px; color: #31353b; outline: none; background-color: white; cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2331353b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat; background-position: right 16px center; background-size: 16px;
+        }
+        .form-select:focus { border-color: #03ac0e; box-shadow: 0 0 0 3px rgba(3, 172, 14, 0.1); }
+
+        /* Pembayaran List */
+        .payment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .selected-payment {
+            padding: 16px; background-color: #ffffff; border: 1px solid #e5e7e9;
+            border-radius: 8px; display: flex; align-items: center; justify-content: space-between;
+        }
+        
+        .selected-payment.disabled {
+            background-color: #f6f8fa;
+            border-color: #e5e7e9;
+            opacity: 0.6;
+            cursor: not-allowed;
+            user-select: none;
+        }
+
+        .payment-info { display: flex; flex-direction: column; }
+        .payment-label { font-size: 12px; color: #6d7588; margin-bottom: 4px; }
+        .payment-bank { font-size: 14px; color: #31353b; }
+        .payment-icon { font-size: 20px; color: #fa591d; font-weight: 900; }
+        .payment-icon.jago { color: #f77e21; }
+        .payment-icon.cod { color: #6d7588; }
+        .payment-badge {
+            background-color: #e5e7e9;
+            color: #6d7588;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: fit-content;
+            margin-top: 4px;
+        }
+
+        .summary-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 12px; color: #6d7588; }
+        .divider { border: none; border-top: 1px dashed #e5e7e9; margin: 16px 0; }
+        .total-row { font-weight: 700; color: #31353b; font-size: 16px; align-items: center; }
+        .total-price { color: #fa591d; font-size: 20px; font-weight: 800; }
+
+        /* ----------------------------------- */
+        /* KOMPONEN GLOBAL & MODAL             */
+        /* ----------------------------------- */
+        .btn-outline {
+            background-color: transparent; color: #31353b; border: 1px solid #e5e7e9;
+            padding: 10px 16px; border-radius: 8px; font-weight: 700; cursor: pointer;
+            font-size: 14px; transition: all 0.2s; display: inline-block; text-align: center;
+        }
+        .btn-outline:hover { background-color: #f3f4f5; }
+
+        .btn-primary {
+            background-color: #03ac0e; color: white; border: none; padding: 14px 16px;
+            border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 16px;
+            margin-top: 20px; transition: all 0.2s; box-shadow: 0 4px 6px rgba(3, 172, 14, 0.2);
+        }
+        .btn-primary:hover { background-color: #028c0b; transform: translateY(-1px); }
+        .full-width { width: 100%; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); display: none; align-items: center;
+            justify-content: center; z-index: 1000; backdrop-filter: blur(3px);
+        }
+
+        .modal-content {
+            background-color: #ffffff; border-radius: 12px; padding: 28px;
+            width: 90%; max-width: 450px; text-align: center; position: relative;
+            animation: fadeIn 0.3s ease; max-height: 90vh; overflow-y: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close-btn {
+            position: absolute; top: 16px; right: 20px; font-size: 28px; cursor: pointer;
+            color: #6d7588; background: none; border: none; transition: color 0.2s;
+            line-height: 1;
+        }
+        .close-btn:hover { color: #31353b; }
+
+        /* Form Controls */
+        .form-group {
+            text-align: left; margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block; font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #31353b;
+        }
+        .form-control {
+            width: 100%; padding: 12px; border: 1px solid #e5e7e9; border-radius: 8px;
+            font-size: 14px; outline: none; transition: 0.2s;
+        }
+        .form-control:focus { border-color: #03ac0e; }
+        textarea.form-control { resize: vertical; min-height: 80px; }
+
+        .payment-details-box {
+            background-color: #f9fbfc; border: 1px solid #e5e7e9; border-radius: 8px;
+            padding: 20px; margin: 20px 0; text-align: left;
+        }
+        .payment-details-box p { margin-bottom: 12px; font-size: 14px; color: #6d7588; }
+        .payment-details-box .detail-value { display: block; font-size: 18px; font-weight: 700; color: #31353b; margin-top: 4px; }
+        .copy-btn { color: #03ac0e; font-weight: 700; cursor: pointer; font-size: 14px; float: right; user-select: none; }
+        .copy-btn:hover { color: #028c0b; text-decoration: underline; }
+        
+        .loader {
+            border: 4px solid #f3f4f5; border-top: 4px solid #03ac0e; border-radius: 50%;
+            width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .page-loader-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.9); display: none; align-items: center;
+            justify-content: center; flex-direction: column; z-index: 9999;
+        }
+
+        /* ----------------------------------- */
+        /* KUSTOM TOAST NOTIFICATION           */
+        /* ----------------------------------- */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+        .toast {
+            background-color: #31353b;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(49, 53, 59, 0.25);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .toast-success { background-color: #03ac0e; }
+        .toast-warning { background-color: #fa591d; }
+        .toast-info { background-color: #31353b; }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .product-page-layout, .checkout-layout { grid-template-columns: 1fr; }
+            .checkout-sidebar { order: 2; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo" onclick="location.reload()" style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                <img src="https://p16-assets-sg.tokopedia-static.net/tos-alisg-i-cqp9s0kcd0-sg/assets-tokopedia-lite/v2/zeus/production/e5b8438b.svg" alt="Tokopedia Logo" width="150" onerror="this.onerror=null; this.src='https://placehold.co/150x40/03ac0e/ffffff?text=tokopedia';">
+            </h1>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div id="page-loader-overlay" class="page-loader-overlay">
+            <div class="loader" style="width: 60px; height: 60px; border-width: 6px;"></div>
+            <p style="color: #31353b; font-weight: bold; margin-top: 10px;">Mengalihkan halaman...</p>
+        </div>
+
+        <div id="product-view">
+            <div class="product-page-layout">
+                <div class="product-gallery">
+                    <div class="main-image card" style="margin-bottom: 0;">
+                        <!-- Menggunakan image dengan fallback cerdas apabila file lokal offline -->
+                        <img id="main-product-img" src="redmi1.jpg" alt="Produk Utama" onerror="this.onerror=null; this.src='redmi1.jpg';">
+                    </div>
+                    
+                    <div class="thumbnail-container">
+                        <div class="thumbnail active" onclick="changeImage('redmi1.jpg', 'Hitam', this, 'redmi1.jpg')">
+                            <img src="redmi1.jpg" alt="infinix" onerror="this.onerror=null; this.src='redmi1.jpg';">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('redmi2.jpg', 'Putih (Silver)', this, 'redmi2.jpg')">
+                            <img src="redmi2.jpg" alt="infinix" onerror="this.onerror=null; this.src='redmi2.jpg';">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('redmi3.jpg', 'Biru', this, 'redmi3.jpg')">
+                            <img src="redmi3.jpg" alt="infinix" onerror="this.onerror=null; this.src='redmi3.jpg';">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-details card">
+                    <h1 id="main-product-title">Xiaomi Redmi 9 3/64GB - Hp dan Charger</h1>
+                    
+                    <div class="product-rating">
+                        <span class="star">★</span>
+                        <span style="font-weight: bold; color: #31353b;">5.0</span>
+                        <span>(2 Terjual)</span>
+                    </div>
+
+                    <div class="product-price" id="main-product-price">Rp 400.000</div>
+
+                    <div class="product-description">
+                        <strong>Detail Produk:</strong><br>
+                        - Kapasitas Internal: 64GB<br>
+                        - RAM: 3GB<br>
+                        - Layar: 6.6" HD+<br>
+                        - Garansi: 6 Bulan<br><br>
+                        Kondisi normal siap pakai, batangan hp dan charger saja. Pengiriman dijamin aman menggunakan bubble wrap tebal dan asuransi penuh.
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="openAddressModal()">Beli Sekarang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="checkout-view" class="checkout-layout" style="display: none;">
+            
+            <section class="checkout-details">
+                <div class="card">
+                    <h2 class="section-title">Alamat Pengiriman</h2>
+                    <div class="address-box">
+                        <p class="name"><span id="chk-name">Nama Penerima</span> <span class="badge">Utama</span></p>
+                        <p class="phone" id="chk-phone">08xx-xxxx-xxxx</p>
+                        <p class="address" id="chk-address">Alamat lengkap penerima</p>
+                        <button class="btn-outline" onclick="openAddressModal()">Ubah Alamat</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="section-title">Pesanan Kamu</h2>
+                    <div class="store-header">
+                        <span class="store-badge">OS</span>
+                        <div class="store-name">Andryansah</div>
+                    </div>
+                    <div class="product-item">
+                        <img class="product-img" id="chk-img-preview" src="redmi.jpg" alt="Preview Pesanan" onerror="this.onerror=null; this.src='redmi1';">
+                        <div class="product-info">
+                            <h3 id="chk-product-title">Xiaomi Redmi 9 3/64GB - Hp dan Charger</h3>
+                            <p class="price" id="chk-product-price">Rp 400.000</p>
+                            <p class="weight">1 Barang (1 kg)</p>
+                        </div>
+                    </div>
+
+                    <div class="shipping-selection">
+                        <label for="courier">Pilih Pengiriman</label>
+                        <select id="courier" class="form-select" onchange="updateTotal()">
+                            <option value="invalid" disabled selected>Pilih durasi pengiriman</option>
+                            <!-- Pilihan Instan baru sesuai instruksi (25.000, diterima dalam 2 jam) -->
+                            <option value="25000">Instan (Rp 25.000) - Diterima dalam 2 jam</option>
+                            <option value="25000">Reguler (Rp 25.000) - Estimasi 3-5 Hari</option>
+                            <option value="45000">Cepat (Rp 45.000) - Estimasi 2-3 Hari</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="checkout-sidebar">
+                <div class="card">
+                    <h2 class="section-title">Metode Pembayaran</h2>
+                    <button class="btn-outline full-width">Lihat Semua Metode</button>
+                    
+                    <div class="payment-list">
+                        <!-- Metode Aktif: Bank Jago -->
+                        <div class="selected-payment">
+                            <div class="payment-info">
+                                <span class="payment-label">Transfer Bank</span>
+                                <strong class="payment-bank">Bank Jago</strong>
+                            </div>
+                            <div class="payment-icon jago">Jago</div>
+                        </div>
+
+                        <!-- Pilihan pembayaran baru (COD) dalam kondisi abu-abu & tidak dapat dipilih -->
+                        <div class="selected-payment disabled" title="COD tidak tersedia untuk wilayah pengiriman ini">
+                            <div class="payment-info">
+                                <span class="payment-label" style="color: #9fa6b0;">Bayar di Tempat (COD)</span>
+                                <strong class="payment-bank" style="color: #9fa6b0;">COD</strong>
+                                <span class="payment-badge">Belum tersedia</span>
+                            </div>
+                            <div class="payment-icon cod">COD</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="section-title">Ringkasan Belanja</h2>
+                    <div class="summary-row">
+                        <span>Total Harga (1 Barang)</span>
+                        <span id="chk-summary-price">Rp 500.000</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Total Ongkos Kirim</span>
+                        <span id="shipping-cost">Rp 0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Biaya Asuransi</span>
+                        <span>Rp 5.000</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Biaya Layanan</span>
+                        <span>Rp 1.000</span>
+                    </div>
+                    <hr class="divider">
+                    <div class="summary-row total-row">
+                        <span>Total Tagihan</span>
+                        <span class="total-price" id="total-price">Rp 506.000</span>
+                    </div>
+                    <button class="btn-primary full-width" onclick="processPayment()">Bayar Sekarang</button>
+                </div>
+            </aside>
+        </div>
+
+        <div id="verification-view" style="display: none; max-width: 500px; margin: 60px auto; text-align: center;">
+            <div class="card" style="padding: 40px 24px;">
+                <div class="loader" style="width: 64px; height: 64px; border-width: 6px; margin: 0 auto 24px auto;"></div>
+                <h2 class="section-title" style="font-size: 24px; margin-bottom: 12px;">Verifikasi Pembayaran</h2>
+                <p style="color: #6d7588; font-size: 15px; margin-bottom: 32px; line-height: 1.6;">
+                    Kami sedang memverifikasi pembayaran Anda. Proses ini otomatis dan biasanya memakan waktu hingga 5-10 menit. Mohon tunggu sebentar.
+                </p>
+                <button class="btn-outline full-width" onclick="window.location.href='https://tokopedia.com'">Kembali ke Halaman Depan</button>
+            </div>
+        </div>
+
+        <div id="address-modal" class="modal-overlay">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeAddressModal()">×</button>
+                <h2 class="section-title" style="font-size: 20px; text-align: left; margin-bottom: 20px;">Isi Alamat Pengiriman</h2>
+                
+                <div class="form-group">
+                    <label>Nama Lengkap Penerima</label>
+                    <input type="text" id="input-name" class="form-control" placeholder="Contoh: Budi Santoso" value="">
+                </div>
+                <div class="form-group">
+                    <label>Nomor Telepon / HP</label>
+                    <input type="tel" id="input-phone" class="form-control" placeholder="Contoh: 081234567890" value="">
+                </div>
+                <div class="form-group">
+                    <label>Alamat Lengkap</label>
+                    <textarea id="input-address" class="form-control" placeholder="Nama Jalan, Gedung, No. Rumah, RT/RW, Kecamatan, Kota, Kodepos"></textarea>
+                </div>
+
+                <button class="btn-primary full-width" onclick="confirmAddress()">Konfirmasi & Lanjut Checkout</button>
+            </div>
+        </div>
+
+        <div id="payment-modal" class="modal-overlay">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closePaymentModal()">×</button>
+                
+                <div id="loading-spinner">
+                    <div class="loader"></div>
+                    <p style="color: #6d7588; font-size: 14px; margin-top: 12px;">Memproses pesanan aman...</p>
+                </div>
+
+                <div id="payment-content" style="display: none;">
+                    <div style="font-size: 48px; margin-bottom: 12px;">⏳</div>
+                    <h2 class="section-title" style="font-size: 20px; margin-bottom: 4px;">Selesaikan Pembayaran</h2>
+                    <p id="countdown" style="color: #6d7588; font-size: 14px; margin-bottom: 16px;">
+    Batas waktu 30:00
+</p>
+                    
+                    <div class="payment-details-box">
+                        <p>Bank Tujuan: <span class="detail-value">Bank Jago</span></p>
+                        <p>Nomor Rekening: <span class="copy-btn" onclick="copyToClipboard('108266137777', 'Nomor rekening disalin!')">Salin</span>
+                            <span class="detail-value">1082 6613 5096</span>
+                        </p>
+                        <p>Atas Nama: <span class="detail-value">Andryansah VA Tokopedia</span></p>
+                        <p style="margin-bottom: 0;">Total Pembayaran: <span class="copy-btn" onclick="copyPaymentAmount()">Salin</span>
+                            <span class="detail-value total-price" id="final-amount">Rp 0</span>
+                        </p>
+                    </div>
+
+                    <button class="btn-primary full-width" onclick="verifyPayment()">Saya Sudah Bayar</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+		// countdown
+		let timeLeft = 30 * 60; // 30 menit dalam detik
+
+    function updateCountdown() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        document.getElementById("countdown").textContent =
+            `Batas waktu ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timer);
+            document.getElementById("countdown").textContent = "Waktu pembayaran telah habis.";
+        }
+    }
+
+    updateCountdown(); // tampilkan langsung
+    const timer = setInterval(updateCountdown, 1000);
+    
+        // --- Interaksi Halaman Produk ---
+        let currentSelectedColor = "Hitam";
+        let baseProductPrice = 500000;
+
+        // Mendeteksi error gambar dan mengganti dengan Unsplash placeholder jika offline/rusak
+        function changeImage(imageSrc, colorName, element, fallbackSrc) {
+            const mainImg = document.getElementById('main-product-img');
+            mainImg.src = imageSrc;
+            // Menyediakan error listener untuk URL cadangan online
+            mainImg.onerror = function() {
+                mainImg.src = fallbackSrc;
+                mainImg.onerror = null;
+            };
+
+            const chkImg = document.getElementById('chk-img-preview');
+            chkImg.src = imageSrc;
+            chkImg.onerror = function() {
+                chkImg.src = fallbackSrc;
+                chkImg.onerror = null;
+            };
+
+            currentSelectedColor = colorName;
+
+            document.querySelectorAll('.thumbnail').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // --- Alur ke Checkout ---
+        function openAddressModal() {
+            document.getElementById('address-modal').style.display = 'flex';
+        }
+
+        function closeAddressModal() {
+            document.getElementById('address-modal').style.display = 'none';
+        }
+
+        // Kustom Toast Alert pengganti alert() browser bawaan agar sesuai prinsip keamanan & estetika
+        function showToast(message, type = 'info') {
+            let container = document.getElementById('toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toast-container';
+                container.className = 'toast-container';
+                document.body.appendChild(container);
+            }
+            
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            
+            let icon = 'ℹ️';
+            if (type === 'success') icon = '✅';
+            if (type === 'warning') icon = '⚠️';
+            
+            toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+            container.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 50);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Sistem Penyalinan Teks Aman Kompatibel dengan Browser / iFrame Sandboxed
+        function copyToClipboard(text, successMessage) {
+            const tempInput = document.createElement("textarea");
+            tempInput.value = text;
+            tempInput.style.position = "fixed"; 
+            document.body.appendChild(tempInput);
+            tempInput.focus();
+            tempInput.select();
+            try {
+                document.execCommand('copy');
+                showToast(successMessage, 'success');
+            } catch (err) {
+                showToast('Gagal menyalin teks', 'warning');
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        function copyPaymentAmount() {
+            const rawAmount = document.getElementById('final-amount').innerText;
+            // Menghilangkan simbol rupiah dan titik untuk memudahkan transfer e-banking
+            const numericOnly = rawAmount.replace(/[^0-9]/g, '');
+            copyToClipboard(numericOnly, `Total pembayaran (${rawAmount}) disalin!`);
+        }
+
+        function confirmAddress() {
+            const name = document.getElementById('input-name').value;
+            const phone = document.getElementById('input-phone').value;
+            const address = document.getElementById('input-address').value;
+
+            // Validasi kustom menggantikan alert() bawaan
+            if(!name || !phone || !address) {
+                showToast("Harap lengkapi semua data alamat pengiriman!", "warning");
+                return;
+            }
+
+            document.getElementById('chk-name').innerText = name;
+            document.getElementById('chk-phone').innerText = phone;
+            document.getElementById('chk-address').innerText = address;
+
+            const mainTitle = document.getElementById('main-product-title').innerText;
+            const mainPriceStr = document.getElementById('main-product-price').innerText;
+
+            document.getElementById('chk-product-title').innerText = `${mainTitle} - Warna: ${currentSelectedColor}`;
+            document.getElementById('chk-product-price').innerText = mainPriceStr;
+            document.getElementById('chk-summary-price').innerText = mainPriceStr;
+
+            baseProductPrice = parseInt(mainPriceStr.replace(/[^0-9]/g, ''));
+
+            updateTotal();
+
+            closeAddressModal();
+            document.getElementById('product-view').style.display = 'none';
+            document.getElementById('checkout-view').style.display = 'grid';
+
+            window.scrollTo(0, 0);
+        }
+
+        // --- Logika Checkout & Pembayaran ---
+        function updateTotal() {
+            const selectElement = document.getElementById('courier');
+            const shippingCost = parseInt(selectElement.value) || 0;
+            
+            const formatter = new Intl.NumberFormat('id-ID', {
+                style: 'currency', currency: 'IDR', minimumFractionDigits: 0
+            });
+
+            document.getElementById('shipping-cost').innerText = formatter.format(shippingCost);
+            
+            // Perhitungan: Harga Dinamis + Asuransi (Rp 5.000) + Layanan (Rp 1.000) + Ongkos Kirim terpilih
+            const total = baseProductPrice + 5000 + 1000 + shippingCost; 
+            document.getElementById('total-price').innerText = formatter.format(total);
+        }
+
+        function closePaymentModal() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+
+        function processPayment() {
+            const selectElement = document.getElementById('courier');
+            
+            // Validasi pengiriman kustom menggantikan alert() bawaan
+            if(selectElement.value === "invalid") {
+                showToast("Silakan pilih durasi pengiriman terlebih dahulu sebelum membayar.", "warning");
+                selectElement.focus();
+                return;
+            }
+
+            const totalText = document.getElementById('total-price').innerText;
+
+            const modal = document.getElementById('payment-modal');
+            const spinner = document.getElementById('loading-spinner');
+            const content = document.getElementById('payment-content');
+
+            modal.style.display = 'flex';
+            spinner.style.display = 'block';
+            content.style.display = 'none';
+            document.getElementById('final-amount').innerText = totalText;
+
+            // Simulasi proses API
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                content.style.display = 'block';
+            }, 1500);
+        }
+
+        // --- Logika Status Verifikasi ---
+        function verifyPayment() {
+            closePaymentModal();
+            
+            const pageLoader = document.getElementById('page-loader-overlay');
+            pageLoader.style.display = 'flex';
+            
+            document.getElementById('checkout-view').style.display = 'none';
+            
+            // Simulasi loading singkat (1 detik) sebelum masuk halaman verifikasi
+            setTimeout(() => {
+                pageLoader.style.display = 'none';
+                document.getElementById('verification-view').style.display = 'block';
+                window.scrollTo(0, 0);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
